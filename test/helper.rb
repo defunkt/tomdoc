@@ -5,7 +5,7 @@ require 'test/fixtures/multiplex'
 require 'tomdoc'
 
 module TomDoc
-  class Test < Test::Unit::TestCase
+  class Test < ::Test::Unit::TestCase
     def self.test(name, &block)
       define_method("test_#{name.gsub(/\W/,'_')}", &block) if block
     end
