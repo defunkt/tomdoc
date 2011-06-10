@@ -57,7 +57,7 @@ module TomDoc
         raise InvalidTomDoc.new("No `Returns' statement.")
       end
 
-      if tomdoc.split("\n\n").size < 2
+      if sections.size < 2
         raise InvalidTomDoc.new("No description section found.")
       end
 
@@ -73,7 +73,7 @@ module TomDoc
     end
 
     def sections
-      tomdoc.split("\n\n")
+      @sections ||= tomdoc.split("\n\n")
     end
 
     def description
