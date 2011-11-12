@@ -49,8 +49,8 @@ module TomDoc
 
     def write_scope(scope, prefix)
       write_scope_header(scope, prefix)
-      write_class_methods(scope, prefix)
-      write_instance_methods(scope, prefix)
+      write_class_methods(scope, prefix) if scope.class_methods.any?
+      write_instance_methods(scope, prefix) if scope.instance_methods.any?
       write_scope_footer(scope, prefix)
     end
 
