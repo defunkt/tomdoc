@@ -104,8 +104,8 @@ module TomDoc
     end
 
     def examples
-      if tomdoc =~ /(\s*Examples\s*(.+?)\s*(?:Returns|Raises))/m
-        $2.split("\n\n")
+      if tomdoc =~ /(\s*Examples\s*(.+?)\s*(?:Returns|Raises|\Z))/m
+        $2.gsub(/^  /, "").split("\n\n")
       else
         []
       end

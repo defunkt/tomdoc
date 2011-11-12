@@ -19,6 +19,14 @@ module TomDoc
       @tomdoc ||= TomDoc.new(@comment)
     end
 
+    def description
+      tomdoc.description
+    end
+
+    def examples
+      tomdoc.examples
+    end
+
     def [](scope)
       @scopes[scope]
     end

@@ -8,11 +8,14 @@ class HTMLGeneratorTest < TomDoc::Test
   test "works" do
     assert_equal <<html, @html
 <ul>
-<li><b>Simple#string(text)</b><pre>Just a simple method.
+<li><code>Simple#string(text)</code><p>Public: Just a simple method.</p>
 
-text - The String to return.
+<dl>
+<dt><code>text</code></dt>
+<dd>The String to return.</dd>
+</dl>
 
-Returns a String.</pre></li></ul>
+<p>Returns a String.</p></li></ul>
 html
   end
 end
