@@ -73,7 +73,7 @@ module TomDoc
     end
 
     def sections
-      @sections ||= tomdoc.split("\n\n")
+      @sections ||= raw.split("\n\n")
     end
 
     def description
