@@ -20,7 +20,7 @@ module TomDoc
     # Returns an instance of TomDoc::SourceParser
     def initialize(options = {})
       @options = {}
-      @parser  = RubyParser.new
+      @parser  = Ruby19Parser.new
       @scopes  = {}
     end
 
