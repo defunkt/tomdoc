@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.files            += Dir.glob("test/**/*")
   s.executables       = %w( tomdoc )
 
-  s.add_dependency   "ruby_parser",    ">= 2.0.4"
+  s.add_dependency   "ruby_parser",    ">= 3.0.0.a1"
   s.add_dependency   "colored"
 
   s.description       = <<desc
