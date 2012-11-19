@@ -122,10 +122,10 @@ module TomDoc
       case Array(node)[0]
       when :module
         name = node[1]
-        [ :module, name, node.comments, tokenize(node[2]) ]
+        [ :module, name, node.comments, tokenize(node[2..-1]) ]
       when :class
         name = node[1]
-        [ :class, name, node.comments, tokenize(node[3]) ]
+        [ :class, name, node.comments, tokenize(node[3..-1]) ]
       when :defn
         name = node[1]
         args = args_for_node(node[2])

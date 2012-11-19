@@ -1,6 +1,6 @@
 source "http://rubygems.org"
 
-gem "ruby_parser", ">= 2.0.4"
+gem "ruby_parser", ">= 3.0.0"
 gem "colored", ">= 1.2"
 
 group :test do
