@@ -71,6 +71,8 @@ comment4
     field - A field name.
 comment5
 
+    @comment6 = TomDoc::TomDoc.new('')
+
   end
 
   test "knows when TomDoc is invalid" do
@@ -170,5 +172,10 @@ comment5
   test "can hande comments without comment marker" do
     assert_equal "Duplicate some text an abitrary number of times.",
       @comment5.description
+  end
+
+  test "does not throw errors with an empty comment" do
+    assert_equal '', @comment6.raw
+    assert_equal '', @comment6.tomdoc
   end
 end
