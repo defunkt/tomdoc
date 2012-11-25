@@ -99,7 +99,7 @@ module TomDoc
       lines = raw.split("\n")
 
       # remove remark symbol
-      if lines.all?{ |line| /^\s*#/ =~ line }   
+      if lines.all?{ |line| /^\s*#/ =~ line }
         lines = lines.map do |line|
           line =~ /^(\s*#)/ ? line.sub($1, '') : nil
         end
@@ -109,24 +109,12 @@ module TomDoc
       # regardless, so we temporary remove it
       first = lines.shift
 
-      # remove indention
-      spaces = lines.map do |line|
-        next if line.strip.empty?
-        md = /^(\s*)/.match(line)
-        md ? md[1].size : nil
-      end.compact
-
-      space = spaces.min || 0
-      lines = lines.map do |line|
-        if line.empty?
-          line.strip
-        else
-          line[space..-1]
-        end
-      end
+      lines = deindent(lines)
 
       # put first line back
-      lines.unshift(first.sub(/^\s*/,''))
+      unless first.nil?
+        lines.unshift(first.sub(/^\s*/,''))
+      end
 
       lines.compact.join("\n")
     end
@@ -242,6 +230,24 @@ module TomDoc
 
   private
 
+    def deindent(lines)
+      # remove indention
+      spaces = lines.map do |line|
+        next if line.strip.empty?
+        md = /^(\s*)/.match(line)
+        md ? md[1].size : nil
+      end.compact
+
+      space = spaces.min || 0
+      lines.map do |line|
+        if line.empty?
+          line.strip
+        else
+          line[space..-1]
+        end
+      end
+    end
+
     # Has the comment been parsed yet?
     def parsed(&block)
       parse unless @parsed
@@ -337,7 +343,8 @@ module TomDoc
 
       examples << section unless section.empty?
       while sections.first && sections.first !~ /^\S/
-        examples << sections.shift.strip
+        lines = sections.shift.split("\n")
+        examples << deindent(lines).join("\n")
       end
 
       @examples = examples

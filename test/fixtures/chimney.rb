@@ -660,8 +660,10 @@ module GitHub
         svc = smoke(host)
         exist =
           case type
-          when :user: svc.user_dir_exist?(name)
-          when :gist: svc.gist_dir_exist?(name)
+          when :user
+            svc.user_dir_exist?(name)
+          when :gist
+            svc.gist_dir_exist?(name)
           else false
           end
 
