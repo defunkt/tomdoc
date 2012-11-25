@@ -119,7 +119,7 @@ comment5
   end
 
   test "knows each example" do
-    assert_equal "multiplex('Bo', 2)\n  # => 'BoBo'",
+    assert_equal "multiplex('Bo', 2)\n# => 'BoBo'",
       @comment.examples[1].to_s
   end
 
