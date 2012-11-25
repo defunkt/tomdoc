@@ -126,7 +126,9 @@ module TomDoc
       end
 
       # put first line back
-      lines.unshift(first.sub(/^\s*/,''))
+      unless first.nil?
+        lines.unshift(first.sub(/^\s*/,''))
+      end
 
       lines.compact.join("\n")
     end
