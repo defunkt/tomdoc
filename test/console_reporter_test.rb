@@ -1,8 +1,8 @@
 require 'test/helper'
 
-class ConsoleGeneratorTest < TomDoc::Test
+class ConsoleReporterTest < TomDoc::Test
   def setup
-    @text = TomDoc::Generators::Console.generate(fixture(:simple))
+    @text = TomDoc::Generator.new(:report => TomDoc::Reporters::Console).generate(fixture(:simple))
   end
 
   test "works" do
