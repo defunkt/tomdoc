@@ -1,8 +1,8 @@
 require 'test/helper'
 
-class HTMLGeneratorTest < TomDoc::Test
+class HTMLReporterTest < TomDoc::Test
   def setup
-    @html = TomDoc::Generators::HTML.generate(fixture(:simple))
+    @html = TomDoc::Generator.new(:report => TomDoc::Reporters::HTML).generate(fixture(:simple))
   end
 
   test "works" do
@@ -12,7 +12,8 @@ class HTMLGeneratorTest < TomDoc::Test
 
 text - The String to return.
 
-Returns a String.</pre></li></ul>
+Returns a String.</pre></li>
+</ul>
 html
   end
 end

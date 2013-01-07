@@ -73,7 +73,8 @@ example
         "Parse FILE and print the TomDoc as FORMAT." do |format|
 
         if format.to_s.downcase == "html"
-          puts Generators::HTML.new(@options).generate(argf.read)
+          @options[:report] = Reporters::HTML
+          puts Generator.new(@options).generate(argf.read)
           exit
         end
       end
@@ -98,7 +99,7 @@ example
       end
 
       on_tail do
-        puts Generators::Console.new(@options).generate(argf.read)
+        puts Generator.new(@options).generate(argf.read)
         exit
       end
 

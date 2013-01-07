@@ -1,9 +1,6 @@
 module TomDoc
-  module Generators
-    class Console < Generator
-      def highlight(text)
-        pygments(text, '-l', 'ruby')
-      end
+  module Reporters
+    class Console < Base
 
       def write_scope_header(scope, prefix = '')
         return if scope.tomdoc.to_s.empty?
@@ -16,6 +13,8 @@ module TomDoc
         write format_comment(method.tomdoc)
       end
 
+      protected
+
       def args(method)
         return '' if !method.respond_to?(:args)
         if method.args.any?
@@ -23,6 +22,10 @@ module TomDoc
         else
           ''
         end
+      end
+
+      def highlight(text)
+        @generator.pygments(text, '-l', 'ruby')
       end
 
       def format_comment(comment)
@@ -54,7 +57,7 @@ module TomDoc
 
         # Constants
         comment.gsub!(/(([A-Z]\w+(::)?)+)/) do
-          if constant?($1.strip)
+          if @generator.constant?($1.strip)
             $1.split('::').map { |part| part.cyan }.join('::')
           else
             $1
@@ -63,6 +66,7 @@ module TomDoc
 
         comment
       end
+
     end
   end
 end

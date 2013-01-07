@@ -18,8 +18,9 @@ module TomDoc
 
   autoload :VERSION,      'tomdoc/version'
 
-  module Generators
-    autoload :Console, 'tomdoc/generators/console'
-    autoload :HTML,    'tomdoc/generators/html'
+  module Reporters
+    autoload :Base,    'tomdoc/reporters/base'
+    autoload :Console, 'tomdoc/reporters/console'
+    autoload :HTML,    'tomdoc/reporters/html'
   end
 end
