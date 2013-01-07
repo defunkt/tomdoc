@@ -3,7 +3,7 @@
 # 
 class MyClass
 
-  # When called, will hit the owner of the instance
+  # Public: When called, will hit the owner of the instance
   # 
   # banana - A tasty fruit, high in potassium
   # 
