@@ -1,15 +1,16 @@
 require 'test/helper'
 
-class GeneratorTest < TomDoc::Test
-  def setup
-    @class = Class.new(TomDoc::Generator) do
-      def write_method(method, prefix = '')
-        @buffer = [] if @buffer.is_a?(String)
-        @buffer << method.name
-      end
-    end
+class MethodsReporter < TomDoc::Reporters::Base
+  def write_method(method, prefix = '')
+    @buffer = [] if @buffer.is_a?(String)
+    @buffer << method.name
+  end
+end
 
-    @generator = @class.new
+class GeneratorTest < TomDoc::Test
+
+  def setup
+    @generator = TomDoc::Generator.new(:report => MethodsReporter)
   end
 
   test "can ignore validation methods" do

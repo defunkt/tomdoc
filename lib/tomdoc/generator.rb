@@ -1,6 +1,6 @@
 module TomDoc
   class Generator
-    attr_reader :options, :scopes
+    attr_reader :options, :scopes, :report
 
     # Creates a Generator.
     #
@@ -16,8 +16,10 @@ module TomDoc
       }
       @options.update(options)
 
+      @report = @options.fetch(:report, Reporters::Console)
+      @report = @report.new(self)
+
       @scopes = {}
-      @buffer = ''
     end
 
     def self.generate(text_or_sexp)
@@ -42,22 +44,20 @@ module TomDoc
         process(scope, "#{name}::")
       end
 
-      @buffer
+      report.output
     ensure
       @scopes = old_scopes || {}
     end
 
     def write_scope(scope, prefix)
-      write_scope_header(scope, prefix)
+      report.write_scope_header(scope, prefix)
+
+      report.before_all_methods(scope, prefix)
       write_class_methods(scope, prefix)
       write_instance_methods(scope, prefix)
-      write_scope_footer(scope, prefix)
-    end
+      report.after_all_methods(scope, prefix)
 
-    def write_scope_header(scope, prefix)
-    end
-
-    def write_scope_footer(scope, prefix)
+      report.write_scope_footer(scope, prefix)
     end
 
     def write_class_methods(scope, prefix = nil)
@@ -65,7 +65,7 @@ module TomDoc
 
       scope.class_methods.map do |method|
         next if !valid?(method, prefix)
-        write_method(method, prefix)
+        report.write_method(method, prefix)
       end.compact
     end
 
@@ -74,19 +74,8 @@ module TomDoc
 
       scope.instance_methods.map do |method|
         next if !valid?(method, prefix)
-        write_method(method, prefix)
+        report.write_method(method, prefix)
       end.compact
-    end
-
-    def write_method(method, prefix = '')
-    end
-
-    def write(*things)
-      things.each do |thing|
-        @buffer << "#{thing}\n"
-      end
-
-      nil
     end
 
     def pygments(text, *args)

@@ -1,28 +1,21 @@
 module TomDoc
-  module Generators
-    class HTML < Generator
-      def highlight(text)
-        pygments(text, '-l', 'ruby', '-f', 'html')
-      end
+  module Reporters
+    class HTML < Base
+
+      #def highlight(text)
+      #  pygments(text, '-l', 'ruby', '-f', 'html')
+      #end
 
       def write_scope_header(scope, prefix)
         #write "<h1>#{scope.name}</h1>"
       end
 
-      def write_scope_footer(scope, prefix)
+      def before_all_methods(scope, prefix)
+        write '<ul>'
       end
 
-      def write_class_methods(scope, prefix)
-        out = '<ul>'
-        out << super.join
-        write out
-      end
-
-      def write_instance_methods(scope, prefix)
-        out = ''
-        out << super.join
-        out << '</ul>'
-        write out
+      def after_all_methods(scope, prefix)
+        write '</ul>'
       end
 
       def write_method(method, prefix = '')
@@ -37,7 +30,9 @@ module TomDoc
         out << '</pre>'
 
         out << '</li>'
+        write out
       end
+
     end
   end
 end
